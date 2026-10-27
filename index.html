@@ -1,0 +1,171 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Thoraya Aldosari</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single narrow column; a terminal window opens the page, then sections read like a file listing. Committed dark look. */
+:root {
+  --bg: #0b0d14;
+  --panel: #12151f;
+  --line: #232838;
+  --fg: #e6e8ef;
+  --muted: #8a90a6;
+  --accent: #e0517c;      /* Qatar maroon, lifted for dark screens */
+  --accent-2: #6fc7d9;    /* cool cyan for terminal output */
+  --display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, transparent 0%, var(--bg) 70%);
+  z-index: 0;
+}
+.wrap {
+  position: relative; z-index: 1;
+  max-width: 760px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 56px 48px;
+  display: flex; flex-direction: column; gap: 72px;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 4px; }
+
+/* Terminal hero */
+.term {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px -20px rgba(224, 81, 124, 0.25);
+}
+.term-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.dot:first-child { background: var(--accent); }
+.term-bar span:last-child { margin-left: auto; }
+.term-body { padding: 24px 22px 28px; font-family: var(--mono); font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
+.prompt { color: var(--muted); }
+.prompt b { color: var(--accent-2); font-weight: 500; }
+.out { color: var(--fg); }
+h1 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(2.4rem, 8vw, 4rem); line-height: 1.02;
+  letter-spacing: -0.01em; margin: 10px 0 6px;
+  text-wrap: balance;
+}
+h1 .ar { display: block; font-family: var(--body); font-size: 0.42em; font-weight: 500; color: var(--muted); margin-top: 10px; letter-spacing: 0; }
+.role { color: var(--accent); }
+.cursor { display: inline-block; width: 9px; height: 1.1em; background: var(--accent); vertical-align: -0.2em; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+/* Sections */
+section { display: flex; flex-direction: column; gap: 18px; }
+.label {
+  font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--accent-2);
+}
+.label::before { content: "~/"; color: var(--muted); }
+h2 { font-family: var(--display); font-weight: 600; font-size: 1.75rem; margin: 0; line-height: 1.2; text-wrap: balance; }
+p { margin: 0; max-width: 62ch; color: #c9cddb; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.fact { background: var(--panel); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; }
+.fact dt { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.fact dd { margin: 0; font-weight: 500; }
+
+/* Projects */
+.repo {
+  display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: center;
+  padding: 20px 22px; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 8px;
+  color: var(--fg); transition: border-color .2s, transform .2s;
+}
+.repo:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-2px); }
+.repo-name { font-family: var(--mono); font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+.repo-name span { color: var(--muted); }
+.repo-desc { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+.arrow { font-family: var(--mono); color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .repo { transition: none; } .repo:hover { transform: none; } }
+
+/* Contact */
+.contact { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  font-family: var(--mono); font-size: 14px;
+  padding: 10px 16px; border-radius: 6px;
+  border: 1px solid var(--accent); color: var(--fg); background: transparent;
+}
+.btn:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+
+footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+
+<div class="wrap">
+
+  <header class="term" aria-label="Introduction">
+    <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>thoraya@qu: ~</span></div>
+    <div class="term-body">
+      <div class="prompt"><b>$</b> whoami</div>
+      <h1>Thoraya Aldosari</h1>
+      <div class="out"><span class="role">student</span> @ Qatar University · coder · builder</div>
+      <div class="prompt" style="margin-top:14px"><b>$</b> cat interests.txt</div>
+      <div class="out">Writing code, developing things, and learning everything about computing.</div>
+      <div class="prompt" style="margin-top:14px"><b>$</b> <span class="cursor" aria-hidden="true"></span></div>
+    </div>
+  </header>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="label">about</div>
+    <h2 id="about-h">Curious about how computers work, all the way down.</h2>
+    <p>I'm a student at Qatar University who likes to code and build things. I'm interested in computing broadly, from the software I write to the systems underneath it, and I learn best by making something and seeing how it runs.</p>
+    <dl class="facts">
+      <div class="fact"><dt>studying at</dt><dd>Qatar University</dd></div>
+      <div class="fact"><dt>currently</dt><dd>Learning &amp; building</dd></div>
+    </dl>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-h">
+    <div class="label">projects</div>
+    <h2 id="projects-h">Things I've built</h2>
+    <p>My code lives on GitHub. Browse my repositories to see what I'm working on.</p>
+    <a class="repo" href="https://github.com/thorayaAD" target="_blank" rel="noopener">
+      <div class="repo-name"><span>github.com/</span>thorayaAD</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="repo-desc">All my public repositories, experiments and coursework.</div>
+    </a>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="label">contact</div>
+    <h2 id="contact-h">Say hello</h2>
+    <p>Want to collaborate, talk code, or see what I'm building next? Find me on GitHub.</p>
+    <div class="contact">
+      <a class="btn" href="https://github.com/thorayaAD" target="_blank" rel="noopener">GitHub · @thorayaAD</a>
+    </div>
+  </section>
+
+  <footer>© 2026 Thoraya Aldosari · built line by line</footer>
+</div>
+
+</body></html>
